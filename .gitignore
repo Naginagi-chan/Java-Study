@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# 인텔리제이 설정 파일 및 폴더 무시
+.idea/
+*.iml
+out/
+
+# 이클립스 설정 파일 무시
+.metadata/
+.classpath
+.project
+.settings/
+bin/
+
+# OS 생성 찌꺼기 파일 무시
+.DS_Store
+Thumbs.db
