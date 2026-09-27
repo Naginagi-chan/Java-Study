@@ -27,5 +27,6 @@ class CarTest2 {
                 c1.gearType + " door = " + c1.door);
         System.out.println("c2의 color = " + c2.color + " gearType = " +
                 c2.gearType + " door = " + c2.door);
+
     }
 }
