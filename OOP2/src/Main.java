@@ -1,21 +1,9 @@
-class Data {
-    int x;
-}
-
-class ParameterTest2 {
-    void main() {
-        Data d = new Data();
-        d.x = 10;
-
-        System.out.println("main() : x = " + d.x);
-
-        change(d);
-        System.out.println("After change(d) ");
-        System.out.println("main() : x = " + d.x);
+class FactorialTest {
+    public static void main(String args[]) {
+        System.out.println(factorial(8));
     }
 
-    static void change(Data d) {
-        d.x = 1000;
-        System.out.println("change () : x = " + d.x);
+    static long factorial(int n) {
+        return (n == 1) ? 1 : n * factorial(n - 1);
     }
 }
