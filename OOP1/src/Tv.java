@@ -1,25 +1,31 @@
-class Tvs
-{
+class Car {
     String color;
-    boolean power;
-    int channel;
+    String gearType;
+    int door;
 
-    void power() { power = !power; }
-    void channelUp() { ++channel; }
-    void channelDown() { --channel; }
+    Car() {
+        this("white", "auto", 4);
+    }
+
+    Car(String color) {
+        this(color, "auto", 4);
+    }
+
+    Car(String color, String gearType, int door) {
+        this.color = color;
+        this.gearType = gearType;
+        this.door = door;
+    }
 }
 
-class TvTest2 {
+class CarTest2 {
     void main() {
-        Tvs t1 = new Tvs();
-        Tvs t2 = new Tvs();
-        System.out.println("t1 channel " + t1.channel + ".");
-        System.out.println("t2 channel " + t2.channel + ".");
+        Car c1 = new Car();
+        Car c2 = new Car("blue");
 
-        t1.channel = 7;
-        System.out.println("change t1 channel to 7");
-
-        System.out.println("t1 channel " + t1.channel + ".");
-        System.out.println("t2 channel " + t2.channel + ".");
+        System.out.println("c1 의 color = " + c1.color + " gearType = " +
+                c1.gearType + " door = " + c1.door);
+        System.out.println("c2의 color = " + c2.color + " gearType = " +
+                c2.gearType + " door = " + c2.door);
     }
 }
