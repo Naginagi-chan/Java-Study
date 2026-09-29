@@ -1,63 +1,65 @@
-class Animal {
-    String name;
+abstract class Payment{
+    int amount;
 
-    Animal(String name) {
-        this.name = name;
+    Payment(int amount){
+        this.amount = amount;
     }
 
-    void cry() {
-        System.out.println(name + "이(가) 소리를 냅니다.");
-    }
-
+    abstract void pay();
 }
 
-class Dog extends Animal {
-
-    Dog(String name) {
-        super(name);
+class KakaoPay extends Payment {
+    KakaoPay(int amount) {
+        super(amount);
     }
 
     @Override
-    void cry() {
-        System.out.println(name + "이(가) 멍멍! 짖습니다.");
+    void pay() {
+        System.out.println("[카카오페이] " + amount + "원 간편 결제 완료");
     }
 }
 
-class Cat extends Animal {
-    Cat(String name) {
-        super(name);
+class NaverPay extends Payment {
+    NaverPay(int amount) {
+        super(amount);
     }
 
     @Override
-    void cry() {
-        System.out.println(name + "이(가) 야옹~ 웁니다.");
+    void pay() {
+        System.out.println("[네이버페이] " + amount + "원 간편 결제 완료");
     }
-
-
 }
 
-class Cow extends Animal {
-    Cow(String name) {
-        super(name);
+class CardPay extends Payment {
+    CardPay(int amount) {
+        super(amount);
     }
 
     @Override
-    void cry() {
-        System.out.println(name + "이(가) 음머어~ 웁니다.");
+    void pay() {
+        System.out.println("[신용카드] " + amount + "원 간편 결제 완료");
     }
+}
+
+class OrderService{
+    void processPayment(Payment payment){
+        payment.pay();
+    }
+
 }
 
 public class Tesort {
     public static void main(String[] args) {
-        // [다형성 핵심] 부모 타입(Animal) 배열 하나에 서로 다른 자식 객체들을 담음
-        Animal[] farm = new Animal[3];
-        farm[0] = new Dog("바둑이");
-        farm[1] = new Cat("나비");
-        farm[2] = new Cow("누렁이");
+        OrderService orderService = new OrderService();
 
-        // 반복문을 돌며 각 동물의 울음소리를 호출
-        for (int i = 0; i < farm.length; i++) {
-            farm[i].cry();
-        }
+        // 각각 다른 자식 객체 생성
+        Payment kakao = new KakaoPay(15000);
+        Payment naver = new NaverPay(23000);
+        Payment card = new CardPay(50000);
+
+        // 주문 처리기는 Payment 규격 하나로 전부 결제 진행
+        orderService.processPayment(kakao);
+        orderService.processPayment(naver);
+        orderService.processPayment(card);
     }
 }
