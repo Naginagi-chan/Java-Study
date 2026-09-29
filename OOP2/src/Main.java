@@ -1,32 +1,38 @@
-class BlockTest {
-    static {
-        System.out.println("static { } ");
+class Tv {
+    boolean power;
+    int channel;
+
+    void power() {
+        power = !power;
     }
 
-    {
-        System.out.println("{ }");
+    void channelUp() {
+        ++channel;
     }
 
-    public BlockTest() {
-        System.out.println("생성자");
+    void channelDown() {
+        --channel;
     }
+}
 
-    static int[] arr = new int[10];
+class CaptionTv extends Tv {
+    boolean caption;
 
-    static {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (int) (Math.random() * 10) + 1;
+    void displayCaption(String text) {
+        if (caption) {
+            System.out.println(text);
         }
     }
+}
 
+class CaptionTvTest {
     void main() {
-        System.out.println("BlockTest bt = new BlockTest (); ");
-        BlockTest bt = new BlockTest();
-        System.out.println("BlockTest bt2 = new BlockTest (); ");
-        BlockTest bt2 = new BlockTest();
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println("arr[" + i + "] :" + arr[i]);
-        }
+        CaptionTv ctv = new CaptionTv();
+        ctv.channel = 10;
+        ctv.channelUp();
+        System.out.println(ctv.channel);
+        ctv.displayCaption("Hello,world!");
+        ctv.caption = true;
+        ctv.displayCaption("Hello, wordl!");
     }
 }
