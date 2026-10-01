@@ -1,38 +1,35 @@
-class Tv {
-    boolean power;
-    int channel;
-
-    void power() {
-        power = !power;
-    }
-
-    void channelUp() {
-        ++channel;
-    }
-
-    void channelDown() {
-        --channel;
-    }
+interface Parseable{
+    public abstract void parse(String fileName);
 }
 
-class CaptionTv extends Tv {
-    boolean caption;
-
-    void displayCaption(String text) {
-        if (caption) {
-            System.out.println(text);
+class ParserManager{
+    public static Parseable getParser(String type){
+        if(type.equals("XML")){
+            return new XMLParser();
+        }else {
+            Parseable p = new HTMLParser();
+            return p;
         }
     }
 }
 
-class CaptionTvTest {
-    void main() {
-        CaptionTv ctv = new CaptionTv();
-        ctv.channel = 10;
-        ctv.channelUp();
-        System.out.println(ctv.channel);
-        ctv.displayCaption("Hello,world!");
-        ctv.caption = true;
-        ctv.displayCaption("Hello, wordl!");
+class XMLParser implements Parseable{
+    public void parse(String fileName){
+        System.out.println(fileName + " - XML Parsing completed.");
+    }
+}
+
+class HTMLParser implements Parseable{
+    public void parse(String fileName){
+        System.out.println(fileName + "- HTML parsing completed.");
+    }
+}
+
+class ParserTest{
+    public static void main(String args[]){
+        Parseable parser = ParserManager.getParser("XML");
+        parser.parse("document.xml");
+        parser=ParserManager.getParser("HTML");
+        parser.parse("document2.html");
     }
 }
