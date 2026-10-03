@@ -1,17 +1,13 @@
-import java.util.Arrays;
-
-class ExceptionEx1{
+class ExceptionEx{
     public static void main(String[] args){
-        int num = 100;
-        int result = 0;
-
-        for (int i =0; i < 10; i++){
-            try {
-                result = num / (int) (Math.random() * 10);
-                System.out.println(result);
-            } catch (ArithmeticException e){
-                System.out.println("0");
-            }
+        try{
+//            Exception e = new Exception("고의로 발생");
+//            throw e;
+            throw new Exception("고의로 발생");
+        } catch (Exception e){
+            System.out.println("에러 메시지 : " + e.getMessage());
+            e.printStackTrace();
         }
+        System.out.println("정상 종료됨");
     }
 }

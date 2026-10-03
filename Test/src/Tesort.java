@@ -1,65 +1,33 @@
-abstract class Payment{
-    int amount;
-
-    Payment(int amount){
-        this.amount = amount;
-    }
-
-    abstract void pay();
+interface DiscountPolicy{
+    int calculateDiscount(int price);
 }
 
-class KakaoPay extends Payment {
-    KakaoPay(int amount) {
-        super(amount);
-    }
-
+class FixDiscountPolicy implements DiscountPolicy{
     @Override
-    void pay() {
-        System.out.println("[카카오페이] " + amount + "원 간편 결제 완료");
+    public int calculateDiscount(int price){
+        return 1000;
     }
 }
 
-class NaverPay extends Payment {
-    NaverPay(int amount) {
-        super(amount);
-    }
-
+class RateDiscountPolicy implements DiscountPolicy{
     @Override
-    void pay() {
-        System.out.println("[네이버페이] " + amount + "원 간편 결제 완료");
+    public int calculateDiscount(int price) {
+        return (int)(price * 0.1);
     }
 }
 
-class CardPay extends Payment {
-    CardPay(int amount) {
-        super(amount);
-    }
 
-    @Override
-    void pay() {
-        System.out.println("[신용카드] " + amount + "원 간편 결제 완료");
-    }
-}
-
-class OrderService{
-    void processPayment(Payment payment){
-        payment.pay();
-    }
-
-}
 
 public class Tesort {
     public static void main(String[] args) {
-        OrderService orderService = new OrderService();
+        int itemPrice = 20000;
 
-        // 각각 다른 자식 객체 생성
-        Payment kakao = new KakaoPay(15000);
-        Payment naver = new NaverPay(23000);
-        Payment card = new CardPay(50000);
+        // 1. 고정 할인 정책 장착
+        DiscountPolicy fixPolicy = new FixDiscountPolicy();
+        System.out.println("고정 할인 금액: " + fixPolicy.calculateDiscount(itemPrice) + "원");
 
-        // 주문 처리기는 Payment 규격 하나로 전부 결제 진행
-        orderService.processPayment(kakao);
-        orderService.processPayment(naver);
-        orderService.processPayment(card);
+        // 2. 10% 정률 할인 정책으로 부품 교체
+        DiscountPolicy ratePolicy = new RateDiscountPolicy();
+        System.out.println("정률 할인 금액: " + ratePolicy.calculateDiscount(itemPrice) + "원");
     }
 }
