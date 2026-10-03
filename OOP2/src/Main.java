@@ -1,35 +1,18 @@
-interface Parseable{
-    public abstract void parse(String fileName);
-}
+import java.util.ArrayList;
+import java.util.List;
 
-class ParserManager{
-    public static Parseable getParser(String type){
-        if(type.equals("XML")){
-            return new XMLParser();
-        }else {
-            Parseable p = new HTMLParser();
-            return p;
-        }
-    }
-}
 
-class XMLParser implements Parseable{
-    public void parse(String fileName){
-        System.out.println(fileName + " - XML Parsing completed.");
-    }
-}
+void main() {
 
-class HTMLParser implements Parseable{
-    public void parse(String fileName){
-        System.out.println(fileName + "- HTML parsing completed.");
-    }
-}
+    List<String> members = new ArrayList<>();
 
-class ParserTest{
-    public static void main(String args[]){
-        Parseable parser = ParserManager.getParser("XML");
-        parser.parse("document.xml");
-        parser=ParserManager.getParser("HTML");
-        parser.parse("document2.html");
+    members.add("Kim");
+    members.add("Young");
+
+    String first = members.get(0);
+    System.out.println(first);
+
+    for(String name : members){
+        System.out.println(name);
     }
 }

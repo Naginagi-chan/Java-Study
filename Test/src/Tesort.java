@@ -1,33 +1,51 @@
-interface DiscountPolicy{
-    int calculateDiscount(int price);
-}
+import java.util.*;
 
-class FixDiscountPolicy implements DiscountPolicy{
-    @Override
-    public int calculateDiscount(int price){
-        return 1000;
+
+class Member{
+    String name;
+    String grade;
+
+    Member(String name, String grade){
+        this.name = name;
+        this.grade = grade;
     }
 }
 
-class RateDiscountPolicy implements DiscountPolicy{
-    @Override
-    public int calculateDiscount(int price) {
-        return (int)(price * 0.1);
-    }
+interface MemberRepository{
+    void save(Member member);
+    List<Member> findAll();
 }
 
+class MemoryMemberRepository implements MemberRepository{
+    List<Member> store = new ArrayList<>();
 
+    @Override
+    public void save(Member member) {
+        store.add(member);
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return store;
+    }
+}
 
 public class Tesort {
-    public static void main(String[] args) {
-        int itemPrice = 20000;
+    public static void main(String[] args)
+    {
+        MemberRepository repository = new MemoryMemberRepository();
 
-        // 1. 고정 할인 정책 장착
-        DiscountPolicy fixPolicy = new FixDiscountPolicy();
-        System.out.println("고정 할인 금액: " + fixPolicy.calculateDiscount(itemPrice) + "원");
+        Member member1 = new Member("철수", "BASIC");
+        Member member2 = new Member("영희","VIP");
 
-        // 2. 10% 정률 할인 정책으로 부품 교체
-        DiscountPolicy ratePolicy = new RateDiscountPolicy();
-        System.out.println("정률 할인 금액: " + ratePolicy.calculateDiscount(itemPrice) + "원");
+        repository.save(member1);
+        repository.save(member2);
+
+        List<Member> members = repository.findAll();
+
+        for(Member m : members)
+        {
+            System.out.println("이름: " + m.name + ", 등급: " + m.grade);
+        }
     }
 }
